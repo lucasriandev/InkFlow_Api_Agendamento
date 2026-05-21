@@ -11,11 +11,13 @@ function parsePositiveInt(value) {
   const number = Number(value);
   return Number.isInteger(number) && number > 0 ? number : null;
 }
+//Ela transforma entrada insegura em número confiável.
 
 function normalizeText(value, field, maxLength) {
   if (typeof value !== "string") {
     return { error: `${field} deve ser um texto` };
   }
+  //Retorna tipo da variável.
 
   const trimmed = value.trim();
   if (!trimmed) {

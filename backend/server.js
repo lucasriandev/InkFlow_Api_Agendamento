@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 
 app.disable("x-powered-by");
+//“Não revele que meu backend usa express”
 
 app.use(express.json({ limit: "100kb" }));
 app.use((req, res, next) => {
@@ -10,6 +11,8 @@ app.use((req, res, next) => {
   res.setHeader("Referrer-Policy", "no-referrer");
   next();
 });
+
+//segurança
 
 const portfolioRoutes = require("./routes/portfolioRoutes");
 
@@ -44,3 +47,17 @@ if (require.main === module) {
 }
 
 module.exports = app;
+
+/* Cliente faz request
+       ↓
+Express recebe
+       ↓
+Middlewares rodam
+       ↓
+Rota correta encontrada
+       ↓
+Controller executa
+       ↓
+Resposta enviada
+       ↓
+Se erro → middleware de erro */
