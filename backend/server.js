@@ -5,6 +5,10 @@ app.disable("x-powered-by");
 //“Não revele que meu backend usa express”
 
 app.use(express.json({ limit: "100kb" }));
+
+//Diz ao express para libertar o acesso publico a pasta
+app.use("/uploads", express.static("uploads"));
+
 app.use((req, res, next) => {
   res.setHeader("X-Content-Type-Options", "nosniff");
   res.setHeader("X-Frame-Options", "DENY");

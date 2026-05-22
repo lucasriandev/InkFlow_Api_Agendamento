@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const upload = require("../middlewares/uploadMiddleware");
 
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
@@ -161,10 +162,14 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", requireAdmin, async (req, res) => {
+router.post("/", requireAdmin, upload.single("imagem"), async (req, res) => {
   const validation = validateTrabalho(req.body);
   if (validation.error) {
     return res.status(400).json({ error: validation.error });
+  }
+
+  if (req.file) {
+    validation.data.imagemUrl = `http://localhost:3000/uploads/${req.file.filename}`;
   }
 
   try {
