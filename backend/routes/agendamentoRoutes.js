@@ -57,9 +57,44 @@ router.patch("/:id/status", requireAdmin, async (req, res) => {
       where: { id: Number(id) },
       data: { status },
     });
+
+    res.json(atualizado);
   } catch (error) {
     res.status(500).json({ error: "Erro ao atualizar o status" });
   }
 });
 
 module.exports = router;
+
+/* FLUXO MENTAL
+
+Frontend envia POST
+↓
+Express recebe
+↓
+req.body pega dados
+↓
+Prisma salva no banco
+↓
+Servidor responde JSON
+
+Admin faz GET
+↓
+Middleware valida API KEY
+↓
+Prisma busca dados
+↓
+Servidor retorna lista
+
+Admin faz PATCH
+↓
+Middleware valida
+↓
+Pega ID da URL
+↓
+Pega status do body
+↓
+Prisma atualiza banco
+↓
+Servidor responde
+*/
