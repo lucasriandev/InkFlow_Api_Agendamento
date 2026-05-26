@@ -19,6 +19,7 @@ app.use((req, res, next) => {
 //segurança
 
 const portfolioRoutes = require("./routes/portfolioRoutes");
+const agendamentosRoutes = require("./routes/agendamentoRoutes");
 
 app.get("/", (req, res) => {
   res.json({
@@ -33,6 +34,8 @@ app.get("/health", (req, res) => {
 
 //"Toda vez que alguém acessar a URL que comece com /portfolio, mande para aquele arquivo cuidar"
 app.use("/portfolio", portfolioRoutes);
+
+app.use("/agendamentos", agendamentosRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ error: "Rota nao encontrada" });
@@ -49,10 +52,6 @@ if (require.main === module) {
     console.log(`Servidor do InkFlow rodando na porta ${port}!`);
   });
 }
-
-const agendamentosRoutes = require("./routes/agendamentoRoutes");
-
-app.use("/agendamentos", agendamentosRoutes);
 
 module.exports = app;
 
