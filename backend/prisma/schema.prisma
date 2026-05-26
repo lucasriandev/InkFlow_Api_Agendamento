@@ -14,3 +14,13 @@ model Trabalho {
   imagemUrl String?
   createdAt DateTime @default(now())
 }
+
+model Agendamento {
+  id          Int      @id @default(autoincrement())
+  nomeCliente String
+  telefone    String
+  dataHora    DateTime
+  descricao   String
+  status      String   @default("PENDENTE")
+  createdAt   DateTime @default(now())
+}

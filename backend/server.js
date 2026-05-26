@@ -50,6 +50,10 @@ if (require.main === module) {
   });
 }
 
+const agendamentosRoutes = require("./routes/agendamentoRoutes");
+
+app.use("/agendamentos", agendamentosRoutes);
+
 module.exports = app;
 
 /* Cliente faz request
