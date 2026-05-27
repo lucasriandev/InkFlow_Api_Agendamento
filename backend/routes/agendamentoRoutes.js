@@ -14,8 +14,23 @@ function requireAdmin(req, res, next) {
 router.post("/", async (req, res) => {
   try {
     const { nomeCliente, telefone, dataHora, descricao } = req.body;
-
     const dataConvertida = new Date(dataHora);
+
+    const horarioOcupado = await prisma.agendamento.findFirst({
+      where: {
+        dataHora: dataConvertida,
+
+        status: {
+          not: "CANCELADO",
+        },
+      },
+    });
+
+    if (horarioOcupado) {
+      return res.status(409).json({
+        error: "Este horario já está reservado para outro cliente!",
+      });
+    }
 
     const novoAgendamento = await prisma.agendamento.create({
       data: {
@@ -26,13 +41,15 @@ router.post("/", async (req, res) => {
       },
     });
 
-    res.status(201).json({
-      mensagem: "Horario solicitado com sucesso!",
-      dados: novoAgendamento,
-    });
+    res
+      .status(201)
+      .json({
+        mensagem: "Horario solicitado com sucesso!",
+        dados: novoAgendamento,
+      });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Erro ao salvar o agendamento!" });
+    res.status(500).json({ error: "Erro ao salvar agendamento" });
   }
 });
 
