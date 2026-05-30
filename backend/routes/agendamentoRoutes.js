@@ -16,13 +16,17 @@ router.post("/", async (req, res) => {
     const { nomeCliente, telefone, dataHora, descricao } = req.body;
     const dataConvertida = new Date(dataHora);
 
+    const agora = new Date();
+    if (dataConvertida < agora) {
+      return res
+        .status(400)
+        .json({ error: "Não é possivel agendar uma sessão no passado!" });
+    }
+
     const horarioOcupado = await prisma.agendamento.findFirst({
       where: {
         dataHora: dataConvertida,
-
-        status: {
-          not: "CANCELADO",
-        },
+        status: { not: "CANCELADO" },
       },
     });
 
@@ -44,12 +48,12 @@ router.post("/", async (req, res) => {
     res
       .status(201)
       .json({
-        mensagem: "Horario solicitado com sucesso!",
+        mensagem: "Horário solicitado com sucesso!",
         dados: novoAgendamento,
       });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Erro ao salvar agendamento" });
+    res.status(500).json({ error: "Erro ao salvar o agendamento!" });
   }
 });
 
