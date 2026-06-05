@@ -115,7 +115,7 @@ export default function PainelAdmin() {
                   <i>"{ag.descricao}"</i>
                 </p>
                 <p>
-                  Status atual: <strong>{ag.status}</strong>
+                  j Status atual: <strong>{ag.status}</strong>
                 </p>
                 {/* Botões de Ação */}
                 <div style={{ gap: "10px", display: "flex" }}>
