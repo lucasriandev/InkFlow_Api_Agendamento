@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import AgendamentoForm from "./agendamentoForm";
+import PainelAdmin from "./PainelAdmin";
 
 function App() {
   const [trabalhos, setTrabalhos] = useState([]);
@@ -39,6 +40,7 @@ function App() {
         ))}
       </div>
       <AgendamentoForm />
+      <PainelAdmin />
     </div>
   );
 }
