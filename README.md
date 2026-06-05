@@ -2,11 +2,6 @@
 
 Uma aplicação Fullstack desenvolvida para estúdios de tatuagem. O **InkFlow** oferece uma vitrine elegante para o portfólio do artista e um sistema integrado para que os clientes solicitem agendamentos. Conta com um Painel de Administração protegido para o tatuador gerir a sua agenda.
 
-## 🔗 Links do Projeto
-*(Adicione os links aqui quando fizer o deploy)*
-* **Frontend (Interface):** [Link do Vercel/Netlify](#)
-* **Backend (API):** [Link do Render/Railway](#)
-
 ## 📋 Sobre o Projeto
 O objetivo deste projeto é demonstrar a criação de uma arquitetura Fullstack completa, com separação clara de responsabilidades entre a interface de utilizador e o servidor. A aplicação permite a visualização de trabalhos, o registo de novos pedidos de tatuagem e a gestão desses pedidos (Confirmar/Cancelar) através de um painel de controlo restrito.
 
