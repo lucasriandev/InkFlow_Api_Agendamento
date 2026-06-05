@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import AgendamentoForm from "./agendamentoForm";
 import PainelAdmin from "./PainelAdmin";
+import "./App.css"; // Certifique-se de importar o CSS!
 
 function App() {
   const [trabalhos, setTrabalhos] = useState([]);
@@ -13,32 +14,20 @@ function App() {
   }, []);
 
   return (
-    <div style={{ padding: "20px", fontFamily: "sans-serif" }}>
-      <h1>InkFlow - Vitrine de Trabalhos</h1>
-      <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
+    <div className="container">
+      <h1>
+        <span>Ink</span>Flow
+      </h1>
+      <h2>Vitrine de Trabalhos</h2>
+
+      <div className="portfolio-grid">
         {trabalhos.map((trabalho) => (
-          <div
-            key={trabalho.id}
-            style={{
-              border: "1px solid #ccc",
-              padding: "15px",
-              borderRadius: "8px",
-              width: "250px",
-            }}
-          >
-            <img
-              src={trabalho.imagemUrl}
-              alt={trabalho.descricao}
-              style={{
-                width: "100%",
-                height: "200px",
-                objectFit: "cover",
-                borderRadius: "4px",
-              }}
-            />
+          <div key={trabalho.id} className="portfolio-card">
+            <img src={trabalho.imagemUrl} alt={trabalho.descricao} />
           </div>
         ))}
       </div>
+
       <AgendamentoForm />
       <PainelAdmin />
     </div>

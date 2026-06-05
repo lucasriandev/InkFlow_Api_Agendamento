@@ -1,184 +1,255 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
+/* =========================================
+   INKFLOW - TEMA ESCURO (DARK THEME)
+   ========================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap");
+
+:root {
+  --bg-dark: #121214;
+  --bg-card: #202024;
+  --text-main: #e1e1e6;
+  --text-muted: #a8a8b3;
+  --accent: #e63946; /* Vermelho Tatuagem */
+  --accent-hover: #ff4d5a;
+  --border: #323238;
+
+  --status-confirmado: #00b37e;
+  --status-cancelado: #f75a68;
+  --status-pendente: #fba94c;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: "Poppins", sans-serif;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* Títulos */
+h1,
+h2 {
+  text-align: center;
+  color: var(--text-main);
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+h1 span {
   color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
-
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
 }
 
-.hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
+/* =========================================
+   VITRINE DE TRABALHOS
+   ========================================= */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  margin-bottom: 60px;
 }
 
-#center {
+.portfolio-card {
+  background-color: var(--bg-card);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.portfolio-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent);
+}
+
+.portfolio-card img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+/* =========================================
+   FORMULÁRIO DE AGENDAMENTO
+   ========================================= */
+.form-container {
+  background-color: var(--bg-card);
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.form-group {
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
+  gap: 20px;
 }
 
-#next-steps {
+.input-field {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: "Poppins", sans-serif;
+  transition: border-color 0.3s;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+textarea.input-field {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Botões Globais */
+.btn {
+  background-color: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 15px 20px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition:
+    background-color 0.3s,
+    transform 0.2s;
+}
+
+.btn:hover {
+  background-color: var(--accent-hover);
+  transform: scale(1.02);
+}
+
+/* =========================================
+   PAINEL ADMIN (DASHBOARD)
+   ========================================= */
+.admin-section {
+  margin-top: 80px;
+  padding-top: 40px;
+  border-top: 1px dashed var(--border);
+}
+
+.login-box {
   display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
+  justify-content: center;
+  gap: 15px;
+  max-width: 400px;
+  margin: 0 auto;
+}
 
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
+.btn-sair {
+  background-color: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  margin-bottom: 30px;
+}
 
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
+.btn-sair:hover {
+  border-color: var(--text-main);
+  color: var(--text-main);
+  background-color: transparent;
+}
 
-  @media (max-width: 1024px) {
+/* Cards da Agenda */
+.agenda-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.agenda-card {
+  background-color: var(--bg-card);
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 6px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  .agenda-card {
     flex-direction: column;
-    text-align: center;
+    align-items: flex-start;
+    gap: 20px;
   }
 }
 
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
+/* Cores de Status na borda esquerda */
+.agenda-card.CONFIRMADO {
+  border-left-color: var(--status-confirmado);
+}
+.agenda-card.CANCELADO {
+  border-left-color: var(--status-cancelado);
+}
+.agenda-card.PENDENTE {
+  border-left-color: var(--status-pendente);
 }
 
-#next-steps ul {
-  list-style: none;
-  padding: 0;
+.agenda-info h3 {
+  margin-bottom: 5px;
+  color: var(--text-main);
+  text-transform: none;
+  text-align: left;
+}
+
+.agenda-info p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.agenda-info .status-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  background-color: var(--bg-dark);
+  margin-top: 10px;
+}
+
+.actions {
   display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
+  gap: 10px;
 }
 
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
+.btn-confirmar {
+  background-color: var(--status-confirmado);
+}
+.btn-confirmar:hover {
+  background-color: #009065;
 }
 
-.ticks {
-  position: relative;
-  width: 100%;
-
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
-
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
-  }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
-  }
+.btn-cancelar {
+  background-color: var(--status-cancelado);
+}
+.btn-cancelar:hover {
+  background-color: #e04855;
 }

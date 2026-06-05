@@ -5,14 +5,11 @@ export default function PainelAdmin() {
   const [agendamentos, setAgendamentos] = useState([]);
   const [logado, setLogado] = useState(false);
 
-  // 1. Função para "Logar" e buscar a agenda
   const buscarAgenda = async () => {
     try {
       const resposta = await fetch("http://localhost:3000/agendamentos", {
         method: "GET",
-        headers: {
-          "x-api-key": senha, // MANDANDO A CARTEIRADA PARA O SEGURANÇA DO NODE!
-        },
+        headers: { "x-api-key": senha },
       });
 
       if (resposta.ok) {
@@ -27,7 +24,6 @@ export default function PainelAdmin() {
     }
   };
 
-  // 2. Função para Confirmar ou Cancelar um horário
   const mudarStatus = async (id, novoStatus) => {
     try {
       const resposta = await fetch(
@@ -36,15 +32,14 @@ export default function PainelAdmin() {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
-            "x-api-key": senha, // Precisa da senha de novo para alterar!
+            "x-api-key": senha,
           },
           body: JSON.stringify({ status: novoStatus }),
         },
       );
 
       if (resposta.ok) {
-        alert(`Status atualizado para ${novoStatus}`);
-        buscarAgenda(); // Recarrega a lista para mostrar a cor nova
+        buscarAgenda();
       }
     } catch (erro) {
       alert("Erro ao atualizar o status.");
@@ -52,94 +47,52 @@ export default function PainelAdmin() {
   };
 
   return (
-    <div
-      style={{
-        marginTop: "50px",
-        padding: "20px",
-        backgroundColor: "#f8f9fa",
-        borderTop: "3px solid #333",
-      }}
-    >
-      <h2>Painel do Tatuador (Admin)</h2>
+    <div className="admin-section">
+      <h2>Área do Tatuador</h2>
 
-      {/* TELA DE LOGIN (Se não estiver logado) */}
       {!logado ? (
-        <div>
+        <div className="login-box">
           <input
             type="password"
-            placeholder="Digite a senha da API..."
+            placeholder="Senha da API..."
             value={senha}
             onChange={(e) => setSenha(e.target.value)}
-            style={{ padding: "8px", marginRight: "10px" }}
+            className="input-field"
+            style={{ flex: 1 }}
           />
-          <button
-            onClick={buscarAgenda}
-            style={{ padding: "8px 15px", cursor: "pointer" }}
-          >
-            Acessar Agenda
+          <button onClick={buscarAgenda} className="btn">
+            Entrar
           </button>
         </div>
       ) : (
-        /* TELA DA AGENDA (Se a senha estiver certa) */
         <div>
-          <button
-            onClick={() => setLogado(false)}
-            style={{ marginBottom: "20px", cursor: "pointer" }}
-          >
-            Sair
+          <button onClick={() => setLogado(false)} className="btn btn-sair">
+            Sair do Painel
           </button>
 
-          <div
-            style={{ display: "flex", flexDirection: "column", gap: "15px" }}
-          >
+          <div className="agenda-list">
             {agendamentos.map((ag) => (
-              <div
-                key={ag.id}
-                style={{
-                  padding: "15px",
-                  border: "1px solid #ccc",
-                  borderLeft:
-                    ag.status === "CONFIRMADO"
-                      ? "5px solid green"
-                      : ag.status === "CANCELADO"
-                        ? "5px solid red"
-                        : "5px solid orange",
-                }}
-              >
-                <strong>{ag.nomeCliente}</strong> - {ag.telefone} <br />
-                <small>
-                  Data: {new Date(ag.dataHora).toLocaleString()}
-                </small>{" "}
-                <br />
-                <p>
-                  <i>"{ag.descricao}"</i>
-                </p>
-                <p>
-                  j Status atual: <strong>{ag.status}</strong>
-                </p>
-                {/* Botões de Ação */}
-                <div style={{ gap: "10px", display: "flex" }}>
+              <div key={ag.id} className={`agenda-card ${ag.status}`}>
+                <div className="agenda-info">
+                  <h3>{ag.nomeCliente}</h3>
+                  <p>📞 {ag.telefone}</p>
+                  <p>📅 {new Date(ag.dataHora).toLocaleString()}</p>
+                  <p>
+                    🖋️ <i>"{ag.descricao}"</i>
+                  </p>
+                  <span className="status-badge">{ag.status}</span>
+                </div>
+
+                <div className="actions">
                   <button
                     onClick={() => mudarStatus(ag.id, "CONFIRMADO")}
-                    style={{
-                      backgroundColor: "green",
-                      color: "white",
-                      border: "none",
-                      padding: "5px 10px",
-                      cursor: "pointer",
-                    }}
+                    className="btn btn-confirmar"
                   >
                     Confirmar
                   </button>
                   <button
                     onClick={() => mudarStatus(ag.id, "CANCELADO")}
-                    style={{
-                      backgroundColor: "red",
-                      color: "white",
-                      border: "none",
-                      padding: "5px 10px",
-                      cursor: "pointer",
-                    }}
+                    className="btn btn-cancelar"
                   >
                     Cancelar
                   </button>

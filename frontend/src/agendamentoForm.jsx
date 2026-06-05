@@ -17,13 +17,10 @@ export default function AgendamentoForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const resposta = await fetch("http://localhost:3000/agendamentos", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formulario),
       });
 
@@ -38,7 +35,7 @@ export default function AgendamentoForm() {
           descricao: "",
         });
       } else {
-        alert("Atenção" + dados.error);
+        alert("Atenção: " + dados.error);
       }
     } catch (error) {
       alert("Erro ao conectar o servidor.");
@@ -46,39 +43,28 @@ export default function AgendamentoForm() {
   };
 
   return (
-    <div
-      style={{
-        marginTop: "40px",
-        padding: "20px",
-        border: "1px solid #333",
-        borderRadius: "8px",
-        maxWidth: "400px",
-      }}
-    >
-      <h2>Solicitar Agendamento!</h2>
+    <div className="form-container">
+      <h2>Solicitar Horário</h2>
 
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", gap: "15px" }}
-      >
+      <form onSubmit={handleSubmit} className="form-group">
         <input
           type="text"
           name="nomeCliente"
-          placeholder="Seu nome!"
+          placeholder="Seu nome"
           required
           value={formulario.nomeCliente}
           onChange={handleChange}
-          style={{ padding: "10px" }}
+          className="input-field"
         />
 
         <input
           type="text"
           name="telefone"
-          placeholder="Seu telefone!"
+          placeholder="Seu telemóvel / WhatsApp"
           required
           value={formulario.telefone}
           onChange={handleChange}
-          style={{ padding: "10px" }}
+          className="input-field"
         />
 
         <input
@@ -87,30 +73,20 @@ export default function AgendamentoForm() {
           required
           value={formulario.dataHora}
           onChange={handleChange}
-          style={{ padding: "10px" }}
+          className="input-field"
         />
 
         <textarea
           name="descricao"
-          placeholder="Descreva a tatuagem (estilo, local, tamanho...)"
+          placeholder="Descreva a tatuagem (estilo, local do corpo, tamanho...)"
           required
           value={formulario.descricao}
           onChange={handleChange}
-          style={{ padding: "10px", minHeight: "80px" }}
+          className="input-field"
         />
 
-        <button
-          type="submit"
-          style={{
-            padding: "12px",
-            backgroundColor: "#28a745",
-            color: "white",
-            border: "none",
-            cursor: "pointer",
-            fontWeight: "bold",
-          }}
-        >
-          Solicitar Horário
+        <button type="submit" className="btn">
+          Enviar Pedido
         </button>
       </form>
     </div>
