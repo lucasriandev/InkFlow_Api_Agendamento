@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import AgendamentoForm from "./agendamentoForm";
 
 function App() {
   const [trabalhos, setTrabalhos] = useState([]);
@@ -37,6 +38,7 @@ function App() {
           </div>
         ))}
       </div>
+      <AgendamentoForm />
     </div>
   );
 }
